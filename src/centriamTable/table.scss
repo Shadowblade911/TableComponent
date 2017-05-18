@@ -1,0 +1,71 @@
+$header-color: #273037;
+$header-text-color: #ffffff;
+$header-sort-color: #3E4953;
+$stripe-color: #FBFBFB;
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../../node_modules/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../../node_modules/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0')
+      format('embedded-opentype'), url('../../node_modules/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0')
+      format('woff2'), url('../../node_modules/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0')
+      format('woff'), url('../../node_modules/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0')
+      format('truetype'), url('../../node_modules/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular')
+      format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+@mixin sort-parts {
+  right: -10px;
+  position:absolute;
+  top: 0;
+  color: $header-sort-color;
+}
+
+table.centriam-table {
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  font-size: 12px;
+  border-spacing:0;
+
+  -webkit-box-shadow: 0px 5px 50px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 5px 50px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 5px 50px 0px rgba(0,0,0,0.75);
+
+  tr {
+    &:nth-child(even){
+      background-color: $stripe-color;
+    }
+
+    th {
+      .text-container {
+        font-family: sans, 'FontAwesome';
+        position: relative;
+
+        &.no-sort:before {
+          content: "\f0dc";
+          @include sort-parts();
+        }
+
+        &.asc-sort:before {
+          content: "\f0de";
+          @include sort-parts();
+          color: #AAF;
+        }
+        &.desc-sort:before {
+          content: "\f0dd";
+          @include sort-parts();
+          color: #FAA;
+        }
+      }
+      background-color: $header-color;
+      color: $header-text-color;
+      position:relative;
+    }
+  }
+}
+
