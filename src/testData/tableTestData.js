@@ -1,8 +1,8 @@
-import CentriamColumnConfig from './centriamTable/CentriamColumnConfig.js';
-import CentriamTableCell from './centriamTable/CentriamTableCell.js';
-import RankCell from './sample_extensions/RankCell.js';
-import TeacherCell from './sample_extensions/TeacherCell.js';
-import FavoriteCell from './sample_extensions/FavoriteCell.js';
+import CentriamColumnConfig from '../centriamTable/CentriamColumnConfig.js';
+import CentriamTableCell from '../centriamTable/CentriamTableCell.js';
+import RankCell from '../sample_extensions/RankCell.js';
+import TeacherCell from '../sample_extensions/TeacherCell.js';
+import FavoriteCell from '../sample_extensions/FavoriteCell.js';
 
 
 
@@ -20,9 +20,6 @@ import FavoriteCell from './sample_extensions/FavoriteCell.js';
  *
  *
  * NOTE: NOTHING IN THIS FILE IS USED FOR THE APPLICATION. THIS IS TEST DATA
- *
- *
- *
  *
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -59,13 +56,26 @@ class Character {
     }
 }
 
+var hiruzen = new Character({
+    name: "Hiruzen Sarutobi",
+    dream: "To live peacefully",
+    rank: "Kage",
+    quote: "You only get one life. There's no need to choose an impossible path. It's fine to live as long as you like " +
+            "and die. However... protecting a precious person… you must not forget this no matter what path you choose.",
+    teacher: null,
+    favorites: new Favorites({
+        food: "Hijiki",
+        technique: "yes",
+        color: null,
+    })
+});
+
 var jiraiya = new Character({
     name: 'Jiraya',
     dream: 'To see an Icha Icha movie',
     rank: 'Jonin',
-    favoriteFood: 'Fried Chicken',
     quote: null,
-    teacher: null,
+    teacher: hiruzen,
     favorites: new Favorites({
         food: 'Karaage',
         technique: 'Summoning',
@@ -76,7 +86,7 @@ var jiraiya = new Character({
 var minato = new Character({
     name: 'Minato',
     dream: 'To win the war',
-    rank: 'Hokage',
+    rank: 'Kage',
     quote: null,
     teacher: jiraiya,
     favorites: new Favorites({
@@ -247,6 +257,88 @@ var ino = new Character({
     })
 });
 
+var orochimaru = new Character({
+    name: "Orochimaru",
+    dream: "to be immortal",
+    rank: 'Kage',
+    quote: "The best medicines always taste bitter.",
+    teacher:hiruzen,
+    favorites: new Favorites({
+        food: 'eggs',
+        technique: "Body switch",
+        color: 'white'
+    })
+});
+
+var tsunade = new Character({
+    name: "Tsunade Senjuu",
+    dream: "See Naruto become Hokage",
+    rank: "Kage",
+    quote: "There are times when death is hard to accept, but if you don't get over it, there's no future...",
+    teacher: hiruzen,
+    favorites: new Favorites({
+        food: "Sake",
+        technique: "Strength of a thousand men",
+        color: "Orange"
+    })
+});
+
+var gai = new Character({
+    name: "Might Gai",
+    dream: "To see Lee be a successful ninja",
+    rank: "Jonin",
+    quote: "For those who don't believe in themselves… hard work is worthless!",
+    teacher: null,
+    favorites: new Favorites({
+        food: "Spicy Curry",
+        technique: null,
+        color: "Green"
+
+    })
+});
+
+var lee = new Character({
+    name: "Rock Lee",
+    dream: "To prove that even without ninjutsu and genjutsu he can become a ninja",
+    rank: "Chunin",
+    quote: "I'm not sad! In front of a man who made an important decision... " +
+           "feeling sadness or pity would be an insult to him!",
+    teacher: gai,
+    favorites: new Favorites({
+        food: "Spicy Curry",
+        technique: "Front Lotus",
+        color: "Green"
+
+    })
+});
+
+var tenten = new Character({
+    name: "Tenten",
+    dream: "To be strong",
+    rank: "Chunin",
+    quote: "Amazing... The brilliance of the blade... the design. They're all beautiful! I want to take them all home!",
+    teacher: gai,
+    favorites: new Favorites({
+        food: "Sesame Dumplings",
+        technique: "Twin Rising Dragons",
+        color: "Red"
+
+    })
+});
+
+var neji = new Character({
+    name: "Neji Hyūga",
+    dream: "To be rid of the caged bird seal",
+    rank: "Jonin",
+    quote: "What can't be changed must be endured. We are who we are, and we must live with it.",
+    teacher: gai,
+    favorites: new Favorites({
+        food: "Herring Soba",
+        technique: "Revolving Heaven",
+        color: "White"
+    })
+});
+
 let data = [
     naruto,
     jiraiya,
@@ -261,7 +353,11 @@ let data = [
     asuma,
     shikamaru,
     choji,
-    ino
+    ino,
+    hiruzen,
+    orochimaru,
+    tsunade,
+    gai
 ];
 
 

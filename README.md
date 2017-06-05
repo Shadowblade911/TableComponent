@@ -20,11 +20,12 @@ in properties to the table.
 |columnConfigs| The configuration of the columns                | N/A no columns means no table|
 |rowClick     | Function to be called on click of a row         | no operation                 |
 |rowHeight    | how tall the rows should be                     | 60px                         |
-|onSort       | a function to be called for back end sorting    | no operation                 |
-|sortInfo     | Default sorting info. Meant for back end sorting| an empty sort info object    |
- 
----
- 
+|headerClick  | The function called when the headers are clicked| an internal sort             |
+
+#### Header Click
+The header click function 
+
+
 
 ### Centriam Column Config
 This is how the table interacts with the data. These describe how to map data to a table and how to display them. 
@@ -35,8 +36,8 @@ This is how the table interacts with the data. These describe how to map data to
 |propKey             | The key key in the row that we wish to display   | defaults to the key          |
 |label               | What the column's title is displayed as          | empty string                 |
 |displayComponent    | The cell type used to display the content        | Base centriam table cell     |
-|minWidth            | The minimum width of the column in pixels        | null                           |
-|growth              | How many shares of growth this column gets       | null                            |
+|minWidth            | The minimum width of the column in pixels        | null                         |
+|growth              | How many shares of growth this column gets       | null                         |
 |formattingFunction  | A function to format the value before display    | null                         |
 |additionalConfig    | any additional parameters for the cell           | null                         | 
 ---

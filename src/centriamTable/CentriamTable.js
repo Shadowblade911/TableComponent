@@ -6,6 +6,9 @@ import './table.css'
 
 function noop(){}
 
+
+
+
 export default class CentriamTable extends React.Component {
     /**
      *
@@ -16,7 +19,7 @@ export default class CentriamTable extends React.Component {
     constructor(props){
         super(props);
 
-        let {data, columnConfigs} = props;
+        let {data, columnConfigs, headerClick} = props;
 
         let self = this;
 
@@ -33,52 +36,82 @@ export default class CentriamTable extends React.Component {
 
         self.state = {
             data: props.data,
-            rowHeight: props.rowHeight || 60,
+            rowHeight: props.rowHeight,
             rowClick: props.rowClick  || noop, // noop function
-            onSort: props.onSort || noop,
-            sortInfo: new SortInfo()
+            sortInfo: props.sortInfo || new SortInfo()
         };
+
+        if(!!self.props.isPaginated){
+            self.state = Object.assign({},
+                self.state,
+                {
+                    currentPage: self.props.currentPage || 1,
+                    pageSize: self.props.pageSize || 25,
+                    maxPage: self.props.maxPage || Math.ceil(self.state.data.length / ( self.props.pageSize || 25)),
+                    changePageFunction: (self.props.changePageFunction && self.props.changePageFunction.bind(self)) || function(page){
+                        self.setState({
+                            currentPage: page
+                        });
+                    }
+                }
+            )
+        }
 
         self.columns = columnConfigs;
 
-        self.headerClick = function(col){
+        //we can use the headerClick to pass in a new sorting function if we don't want to use the default
+        self.headerClick = headerClick ? headerClick.bind(self) : function(col){
             let sortFunc = col.sortFunction;
             let sortedData;
             let newSortInfo = new SortInfo(this.state.sortInfo);
 
-
-
             if(newSortInfo.columnDefinedKey === col.definedKey){
                 switch(newSortInfo.sortType) {
                     case SortInfo.UNSORTED:
-                        sortedData = self.state.data.sort(sortFunc(true, col.propKey, col));
+                        sortedData = this.state.data.sort(sortFunc(true, col.propKey, col));
                         newSortInfo.sortType = SortInfo.ASCENDING;
                         break;
                     case SortInfo.ASCENDING:
-                        sortedData = self.state.data.sort(sortFunc(false, col.propKey, col));
+                        sortedData = this.state.data.sort(sortFunc(false, col.propKey, col));
                         newSortInfo.sortType = SortInfo.DESCENDING;
                         break;
                     case SortInfo.DESCENDING:
-                        sortedData = self.srcData.map(function (datum) {return datum;});
+                        sortedData = this.srcData.map(function (datum) {return datum;});
                         newSortInfo.sortType = SortInfo.UNSORTED;
                         break;
                     default:
                         throw new Error("Unknown state: " + newSortInfo.sortType);
                 }
             } else {
-                sortedData = self.state.data.sort(sortFunc(true, col.propKey, col));
-                newSortInfo.columnDefinedKey = col.definedKey;
-                newSortInfo.additionalInfo = col.additionalConfig
+                sortedData = this.state.data.sort(sortFunc(true, col.propKey, col));
+                newSortInfo.column = col;
+                newSortInfo.sortType = SortInfo.ASCENDING;
             }
 
-            this.state.onSort(newSortInfo);
-
-            self.setState({
+            this.setState({
                 data: sortedData,
                 sortInfo: newSortInfo
             });
         }
     }
+
+     createPageButton = function(index){
+
+        let classNames = "page-button "  + (this.state.currentPage === index ? "active" : "");
+
+        return (
+            <button
+                key={index}
+                className={classNames}
+                onClick={() => {
+                    this.state.currentPage !== index &&
+                    this.state.changePageFunction(index);
+                }}
+            >
+                <span>{index}</span>
+            </button>
+        )
+    };
 
     render() {
         let self = this;
@@ -113,8 +146,10 @@ export default class CentriamTable extends React.Component {
         }
 
         var rows = [];
-        for(let r = 0; r < data.length; r++) {
-            let datum = data[r];
+        let length = self.props.isPaginated ? self.state.pageSize: data.length;
+        let offset = self.props.isPaginated ? self.state.pageSize * (self.state.currentPage - 1) : 0;
+        for(let r = 0; r < length; r++) {
+            let datum = data[offset + r];
             let cells = [];
             for(let c = 0; c < self.columns.length; c++){
                 let col = self.columns[c];
@@ -144,20 +179,60 @@ export default class CentriamTable extends React.Component {
             rows.push(row);
         }
 
+        let pageButtons = [];
+        if(self.props.isPaginated){
+            let currentPage = self.state.currentPage;
+            for(let i =1; i <= 5; i++){
+                if(currentPage-i >= 1) {
+                    pageButtons.unshift(self.createPageButton(currentPage - i));
+                }
+            }
+            pageButtons.push(self.createPageButton(self.state.currentPage));
+            for(let i =1; i <= 5; i++){
+                if(currentPage+i <= self.state.maxPage) {
+                    pageButtons.push(self.createPageButton(currentPage + i));
+                }
+            }
+        }
 
 
 
         return (
-            <table className="centriam-table">
-                <thead>
-                <tr>
-                    {headers}
-                </tr>
-                </thead>
-                <tbody>
-                {rows}
-                </tbody>
-            </table>
+            <div className="centriam-table-container">
+                <table className="centriam-table">
+                    <thead>
+                    <tr>
+                        {headers}
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
+                {self.props.isPaginated &&
+                    <div className="paging-row">
+                        <button
+                            className="defined previous"
+                            disabled={self.state.currentPage === 1}
+                            onClick={() => {
+                               this.state.changePageFunction(self.state.currentPage-1);
+                            }}
+                        >
+                            Previous
+                        </button>
+                        {pageButtons}
+                        <button
+                            className="defined next"
+                            disabled={self.state.currentPage === self.state.maxPage}
+                            onClick={() => {
+                                this.state.changePageFunction(self.state.currentPage+1);
+                            }}
+                        >
+                            next
+                        </button>
+                    </div>
+                }
+            </div>
         );
 
 

@@ -8,7 +8,7 @@ export default class RankCell extends CentriamTableCell{};
 CentriamTableCell.CELL_TYPES[RankCell.name] = RankCell;
 
 RankCell.RANK_MAP = {
-    hokage: 1,
+    kage: 1,
     jonin: 2,
     chunin: 3,
     genin: 4
@@ -17,7 +17,9 @@ RankCell.RANK_MAP = {
 RankCell.getSortFunction = function(){
     return function(isAscending, key){
         return function(a, b){
-            return RankCell.RANK_MAP[a[key].toLowerCase()] - RankCell.RANK_MAP[b[key].toLowerCase()]
+            let aMapped = RankCell.RANK_MAP[a[key].toLowerCase()];
+            let bMapped = RankCell.RANK_MAP[b[key].toLowerCase()];
+            return  (aMapped < bMapped ? -1 : aMapped > bMapped ? 1 : 0)
                 * (isAscending ? 1 : -1);
         }
     }

@@ -1,17 +1,22 @@
 import React from 'react';
 import CentriamTable from './centriamTable/CentriamTable.js'
-import {data, data2, columns, columns2} from './tableTestData.js';
+import {data, data2, columns, columns2} from './testData/tableTestData.js';
+import * as dndData from './testData/dndTestData.js';
 import logo from './logo.svg';
 import './App.css';
 
 
 function rowClick(data){console.log(data.name);}
 
-function onSort(sortInfo){
-    console.log(
-        "Sorting on " + sortInfo.columnDefinedKey + " : " + sortInfo.sortType
+const changeData = function(){
+
+    const singleDatum = data[Math.floor(Math.random() * data.length)];
+
+    this.setState({
+            data: [singleDatum]
+        }
     )
-}
+};
 
 class App extends React.Component {
   render() {
@@ -23,10 +28,12 @@ class App extends React.Component {
         </div>
 
         <CentriamTable
-            data={data}
-            columnConfigs={columns}
+            data={dndData.data}
+            columnConfigs={dndData.columns}
             rowClick={rowClick}
-            onSort={onSort}
+            rowHeight={60}
+            isPaginated={true}
+            pageSize={5}
         />
 
         <div style={{width:"50%", marginTop:'50px', display:'inline-block', verticalAlign:'top'}}>
@@ -38,6 +45,7 @@ class App extends React.Component {
           <div style={{width:"50%", marginTop:'50px', display:'inline-block',verticalAlign:'top'}}>
               <CentriamTable
                   data={data}
+                  headerClick={changeData}
                   columnConfigs={columns}
               />
           </div>

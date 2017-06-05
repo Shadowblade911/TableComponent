@@ -25,46 +25,113 @@ $stripe-color: #FBFBFB;
   color: $header-sort-color;
 }
 
-table.centriam-table {
+.centriam-table-container {
   width: 95%;
   margin-left: 2.5%;
   margin-right: 2.5%;
-  font-size: 12px;
-  border-spacing:0;
+  position:relative;
 
-  -webkit-box-shadow: 0px 5px 50px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 5px 50px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 5px 50px 0px rgba(0,0,0,0.75);
+  .paging-row {
+    margin-top: 44px;
+    line-height: 24px;
+    button{
 
-  tr {
-    &:nth-child(even){
-      background-color: $stripe-color;
-    }
+      text-decoration:none;
 
-    th {
-      .text-container {
+      &:focus,&:active {outline:0;}
+
+      &.defined {
         font-family: sans, 'FontAwesome';
-        position: relative;
-
-        &.no-sort:before {
-          content: "\f0dc";
-          @include sort-parts();
+        font-size: 13px;
+        position: absolute;
+        border: none;
+        background-color: transparent;
+        text
+        &:disabled {
+          opacity: .2;
         }
 
-        &.asc-sort:before {
-          content: "\f0de";
-          @include sort-parts();
-          color: #AAF;
+        &.previous {
+          left: 0;
+          &:before {
+            margin-right: 10px;
+            content: "\f060";
+          }
         }
-        &.desc-sort:before {
-          content: "\f0dd";
-          @include sort-parts();
-          color: #FAA;
+
+        &.next {
+          right: 0;
+          &:after {
+            margin-left: 10px;
+            content: "\f061";
+          }
         }
       }
-      background-color: $header-color;
-      color: $header-text-color;
-      position:relative;
+
+      &.page-button {
+         background-color: transparent;
+         border:none;
+         margin: 0 5px;
+         line-height:0;
+         width:24px;
+         height:24px;
+         position:relative;
+
+         &.active {
+           border-radius: 100%;
+           background-color: $header-color;
+           color: #fff;
+         }
+
+        span {
+          position:absolute;
+          left:50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+
+  table.centriam-table {
+    width:100%;
+    font-size: 12px;
+    border-spacing: 0;
+
+    -webkit-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+
+    tr {
+      background-color: #fff;
+      &:nth-child(even) {
+        background-color: $stripe-color;
+      }
+
+      th {
+        .text-container {
+          font-family: sans, 'FontAwesome';
+          position: relative;
+
+          &.no-sort:before {
+            content: "\f0dc";
+            @include sort-parts();
+          }
+
+          &.asc-sort:before {
+            content: "\f0de";
+            @include sort-parts();
+            color: #AAF;
+          }
+          &.desc-sort:before {
+            content: "\f0dd";
+            @include sort-parts();
+            color: #FAA;
+          }
+        }
+        background-color: $header-color;
+        color: $header-text-color;
+        position: relative;
+      }
     }
   }
 }

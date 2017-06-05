@@ -4,20 +4,17 @@ export default class SortInfo {
         if(json) {
             this.column = json.column;
             this.sortType = json.sortType || SortInfo.UNSORTED;
-            this.additionalInfo = json.additionalInfo;
         }
     }
 
     /**
      *
-     * @param {CentriamColumnConfig} co - the column we want to get the sorting name for
+     * @param {CentriamColumnConfig} col - the column we want to get the sorting name for
      * @return {String} the name of the column sort
-     *
-     * TODO: move the name out into another object that could be overriden
      *
      */
     getSortColName(col){
-        if(this.column && col.definedKey === this.column.definedKey){
+        if(this.column && col.definedKey === this.columnDefinedKey){
             switch(this.sortType) {
                 case SortInfo.ASCENDING:
                     return 'asc-sort';
@@ -28,6 +25,10 @@ export default class SortInfo {
             }
         }
         return 'no-sort';
+    }
+
+    get columnDefinedKey(){
+        return this.column && this.column.definedKey;
     }
 }
 
