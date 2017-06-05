@@ -14,8 +14,6 @@ export default class FavoriteCell extends CentriamTableCell{
     }
 };
 
-CentriamTableCell.CELL_TYPES[FavoriteCell.name] = FavoriteCell;
-
 
 // add your own sorting function like so.
 FavoriteCell.getSortFunction = function(){

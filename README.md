@@ -19,11 +19,38 @@ in properties to the table.
 |data         | This is the source of data                      | N/A no data means no table   |
 |columnConfigs| The configuration of the columns                | N/A no columns means no table|
 |rowClick     | Function to be called on click of a row         | no operation                 |
-|rowHeight    | how tall the rows should be                     | 60px                         |
+|rowHeight    | how tall the rows should be                     | auto                         |
 |headerClick  | The function called when the headers are clicked| an internal sort             |
+|sortInfo     | an object describing the sorting information    | centriam default sort        |
+|isPaginated  | if the table should be paginated                | false                        |
+
+#### pagination properties
+if you pass in a truthy value to the isPaginated property, then you can also pass in this information 
+
+| Prop Name          |          Use                                    |   Default                    |
+|--------------------|:------------------------------------------------|------------------------------|
+|currentPage         | The page that you are displaying                | 1                            |
+|viewPage            | what page you appear to be showing              | 1                            |
+|pageSize            | The number of records to display on a page      | 25                           |
+|maxPage             | The number of pages shown                       | (data length / page size) + 1|
+|changePageFunction  | The function called when you change pages       | simple page update           |
 
 #### Header Click
-The header click function 
+The header click function is how we are handling sorting. By default, it does an internal sort, and only rearranges the 
+data. Since it is exposed and can be overridden, we can do much more than just an internal sort. There are a few things 
+to know about overriding the header click function
+1) We bind the main table class to the function. Therefore, this.setState will allow you to change any state properties.
+2) the setState method by default expects two things, 
+    1) the data to be changed
+    2) that you update the sortInfo in order to show what the new sorting is supposed to look like
+3) the sortInfo class you use should override CentriamSortInfo or implement a method, getSortColName and getSortColStyle
+which should return a string and an object respectively. 
+
+#### changePageFunction
+The changePageFunction can also be overridden, and the table class is bound to the function. Meaning you can use it to 
+page requests on the backend if desired. If you do that you should always keep the state variable currentPage set to 1,
+but change the viewPage to whatever page the user is requesting. Additionally, you should ensure that a state variable
+called pageDisplay is updated as well. 
 
 
 
@@ -47,9 +74,6 @@ The cells for displaying data. Unlike the table or the Column config, no propert
 the properties of the table cell are what gets passed to it from Column configs. Instead, when using this class, you 
 should extend the class into your own class, and as part of that you override the methods of the class. Overwriting the
 render method will let you customize the display for example. 
-
-Additionally, every class should add it's constructor's name into the CentriamTableCell.CELL_TYPES hash, using the 
-constructor's name as the key, and the constructor as the value. 
 
 You can write your own sorting functions for your cells, by adding a static method on constructor called getSortFunction.
  The getSortFunction should return a function that takes, in order, a boolean value to sort by ascending or descending,

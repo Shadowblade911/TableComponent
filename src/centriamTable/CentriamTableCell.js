@@ -1,8 +1,9 @@
 import React from 'react';
 
-
 /**
  * Very basic table cell. This should be extended by the consuming application
+ * if you need to extend this, make sure to write your own versions of the getSortFunction methods
+ * and register the Cell in the CentriamCellRegistry
  */
 export default class CentriamTableCell extends React.Component {
     constructor({data, dataKey, minWidth, percentage, formattingFunction, ...props}) {
@@ -36,18 +37,36 @@ export default class CentriamTableCell extends React.Component {
             </td>
         );
     };
+
+    /**
+     * Okay, bit of black magic going on here so I'll explain the purpose of this
+     * sortFunction itself is a getter. centriamColunConfig.sortFunction returns a function for sorting
+     * That function should take a single parameter, is ascending, and return a function that either will sort
+     * the data ascending, or descending based off the first parameter.  If your column has a special form of sorting,
+     * override this function
+     * @return {Function} - a function that returns one of two functions. Input should be a boolean value
+     */
+    static getSortFunction(){
+        return (isAscending, key) => isAscending ?
+            CentriamTableCell.DEFAULT_SORT.bind(this, key) :
+            CentriamTableCell.REVERSE_SORT.bind(this, key);
+    };
+
 };
 
-CentriamTableCell.CELL_TYPES = {
-    [CentriamTableCell.name]: CentriamTableCell
-};
 
-
-
-CentriamTableCell.render = function(name, props){
-    let Component = CentriamTableCell.CELL_TYPES[name];
-    return <Component {...props}/>
-};
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+/*  Everything below this line is internal helper methods that are more than likely not needed for extending the tables
+/*  They are being left outside of the constructor in order to keep the constructor cleaner and to make it easier to
+/*  use the constructor as an example for extending.
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 
 
@@ -88,19 +107,7 @@ CentriamTableCell.REVERSE_SORT = function(key, a,b){
     return a[key] > b[key] ? -1 : a[key] < b[key] ? 1 : 0;
 };
 
-/**
- * Okay, bit of black magic going on here so I'll explain the purpose of this
- * sortFunction itself is a getter. centriamColunConfig.sortFunction returns a function for sorting
- * That function should take a single parameter, is ascending, and return a function that either will sort
- * the data ascending, or descending based off the first parameter.  If your column has a special form of sorting,
- * override this function
- * @return {Function} - a function that returns one of two functions. Input should be a boolean value
- */
-CentriamTableCell.getSortFunction = function(){
-    return function(isAscending, key){
-        return isAscending ? CentriamTableCell.DEFAULT_SORT.bind(this, key) : CentriamTableCell.REVERSE_SORT.bind(this, key);
-    }
-};
+
 
 /**
  *

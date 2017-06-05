@@ -1,6 +1,5 @@
 import CentriamColumnConfig from '../centriamTable/CentriamColumnConfig.js';
-import CentriamTableCell from '../centriamTable/CentriamTableCell.js';
-import {D, BAB} from 'supportingTestClasses.js';
+import {D, BAB} from './supportingTestClasses.js';
 
 
 /**
@@ -102,8 +101,6 @@ const barbarian = new CharacterClass({
     bab: BAB.HIGH
 });
 
-
-
 const bard = new CharacterClass({
     name: "Bard",
     parentClass: null,
@@ -111,7 +108,7 @@ const bard = new CharacterClass({
     bab: BAB.MEDIUM
 });
 
-bardSubClasses = [
+const bardSubClasses = [
     "Animal Speaker",
     "Arbiter",
     "Arcane Duelist",
@@ -182,7 +179,6 @@ bardSubClasses = [
     "Youxia",
   ];
 
-
 let data = [
     barbarian,
     bard
@@ -212,20 +208,27 @@ let columns = [
     new CentriamColumnConfig({
         key: "name",
         label: "Name",
+        growth:5
     }),
     new CentriamColumnConfig({
         key: "parentClass",
         label: "Subclass of",
+        formattingFunction: function(data){return data && data.name;},
+        growth:1
     }),
     new CentriamColumnConfig({
-        key: "Hit Die Size",
-        label: "hd",
-        formattingFunction: function(data){return data.val;}
+        key: "hd",
+        label: "Hit Die Size",
+        formattingFunction: function(data){
+            return data && data.val;
+        },
+        growth:1
     }),
     new CentriamColumnConfig({
         key: "bab",
         label: "Base Attack Bonus",
-        formattingFunction: function(data){return data.val;}
+        formattingFunction: function(data){return data && data.val;},
+        growth:1
     })
 ];
 

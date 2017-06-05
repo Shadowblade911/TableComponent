@@ -5,8 +5,6 @@ import CentriamTableCell from '../centriamTable/CentriamTableCell.js'
  */
 export default class RankCell extends CentriamTableCell{};
 
-CentriamTableCell.CELL_TYPES[RankCell.name] = RankCell;
-
 RankCell.RANK_MAP = {
     kage: 1,
     jonin: 2,

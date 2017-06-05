@@ -32,7 +32,7 @@ export default class CentriamColumnConfig {
         this.key                = key;
         this._propKey           = propKey;
         this.label              = label;
-        this.displayComponent   = displayComponent.name;
+        this.displayComponent   = displayComponent;
         this.minWidth           = minWidth;
         this.growth             = growth;
         this.formattingFunction = formattingFunction;
@@ -87,7 +87,7 @@ export default class CentriamColumnConfig {
      * @return {Function}
      */
     get sortFunction(){
-        return CentriamTableCell.CELL_TYPES[this.displayComponent].getSortFunction();
+        return this.displayComponent.getSortFunction();
     }
 
 }

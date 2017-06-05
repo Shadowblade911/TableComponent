@@ -1,6 +1,5 @@
 import React from 'react';
 import CentriamTableCell from '../centriamTable/CentriamTableCell.js'
-
 /**
  *  Cell that extends Centriam cell. Using this for demonstration purposes, should not be included with final product...
  */
@@ -8,13 +7,18 @@ export default class TeacherCell extends CentriamTableCell{
     render(){
         return (
             <td>
-                {this.value && this.value.name}
+                {this.value && this.value.name &&
+                    <button onClick={(e) => {
+                        alert(this.value.name);
+                    }}> Alert Name </button>
+
+                }
             </td>
         )
     }
 };
 
-CentriamTableCell.CELL_TYPES[TeacherCell.name] = TeacherCell;
+
 
 TeacherCell.getSortFunction = function(){
     return function(isAscending, key){

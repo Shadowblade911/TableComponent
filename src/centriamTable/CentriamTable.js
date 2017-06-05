@@ -1,13 +1,8 @@
 import React from 'react';
-import CentriamTableCell from './CentriamTableCell.js';
 import SortInfo from './CentriamSortInfo.js';
 import './table.css'
 
-
 function noop(){}
-
-
-
 
 export default class CentriamTable extends React.Component {
     /**
@@ -38,7 +33,8 @@ export default class CentriamTable extends React.Component {
             data: props.data,
             rowHeight: props.rowHeight,
             rowClick: props.rowClick  || noop, // noop function
-            sortInfo: props.sortInfo || new SortInfo()
+            sortInfo: props.sortInfo || new SortInfo(),
+
         };
 
         if(!!self.props.isPaginated){
@@ -46,13 +42,18 @@ export default class CentriamTable extends React.Component {
                 self.state,
                 {
                     currentPage: self.props.currentPage || 1,
-                    pageSize: self.props.pageSize || 25,
+                    pageDisplay: self.props.pageDisplay || 1,
+                    viewPage: self.props.viewPage || 1,
+                    pageSize:    self.props.pageSize    || 25,
                     maxPage: self.props.maxPage || Math.ceil(self.state.data.length / ( self.props.pageSize || 25)),
-                    changePageFunction: (self.props.changePageFunction && self.props.changePageFunction.bind(self)) || function(page){
-                        self.setState({
-                            currentPage: page
-                        });
-                    }
+                    changePageFunction: (self.props.changePageFunction && self.props.changePageFunction.bind(self)) ||
+                        function(page){
+                            self.setState({
+                                currentPage: page,
+                                viewPage: page,
+                                pageDisplay: page
+                            });
+                        }
                 }
             )
         }
@@ -63,7 +64,8 @@ export default class CentriamTable extends React.Component {
         self.headerClick = headerClick ? headerClick.bind(self) : function(col){
             let sortFunc = col.sortFunction;
             let sortedData;
-            let newSortInfo = new SortInfo(this.state.sortInfo);
+            let SortInfoClass = this.state.sortInfo.constructor;
+            let newSortInfo = new SortInfoClass(this.state.sortInfo);
 
             if(newSortInfo.columnDefinedKey === col.definedKey){
                 switch(newSortInfo.sortType) {
@@ -95,22 +97,17 @@ export default class CentriamTable extends React.Component {
         }
     }
 
-     createPageButton = function(index){
 
-        let classNames = "page-button "  + (this.state.currentPage === index ? "active" : "");
-
-        return (
-            <button
-                key={index}
-                className={classNames}
-                onClick={() => {
-                    this.state.currentPage !== index &&
-                    this.state.changePageFunction(index);
-                }}
-            >
-                <span>{index}</span>
-            </button>
-        )
+    pageJump = function(e){
+        if(e.which === 13 || e.keyCode === 13){
+            var val = e.target.value;
+            val = Number(val);
+            if(!isNaN(val)){
+                val = val < 1 ? 1 : val > this.state.maxPage ? this.state.maxPage : val;
+                this.state.currentPage !== val &&
+                this.state.changePageFunction(val);
+            }
+        }
     };
 
     render() {
@@ -120,7 +117,7 @@ export default class CentriamTable extends React.Component {
 
         let headers = [];
         for(let col of self.columns){
-            let style = {};
+            let style = self.state.sortInfo.getSortColStyle(col);
             style['minWidth'] =  col.minimumPixelWidth;
             style['width'] = col.percentageWidth(self.precentGrowth);
             style['height'] = self.state.rowHeight + 'px';
@@ -153,18 +150,20 @@ export default class CentriamTable extends React.Component {
             let cells = [];
             for(let c = 0; c < self.columns.length; c++){
                 let col = self.columns[c];
+
+                let Component = col.displayComponent;
+                let props = {
+                    key: +(new Date()) + ':' +  r + ':' + c + ':' + col.key,
+                    data: datum,
+                    dataKey: col.propKey,
+                    minWidth: col.minimumPixelWidth,
+                    percentage: col.percentageWidth(self.precentGrowth),
+                    formattingFunction: col.formattingFunction,
+                    ...col.additionalConfig
+                };
+
                 cells.push(
-                    CentriamTableCell.render(col.displayComponent,
-                        {
-                            key: +(new Date()) + ':' +  r + ':' + c + ':' + col.key,
-                            data: datum,
-                            dataKey: col.propKey,
-                            minWidth: col.minimumPixelWidth,
-                            percentage: col.percentageWidth(self.precentGrowth),
-                            formattingFunction: col.formattingFunction,
-                            ...col.additionalConfig
-                        }
-                    )
+                    <Component {...props}/>
                 )
             }
             let row =  (
@@ -178,24 +177,6 @@ export default class CentriamTable extends React.Component {
             );
             rows.push(row);
         }
-
-        let pageButtons = [];
-        if(self.props.isPaginated){
-            let currentPage = self.state.currentPage;
-            for(let i =1; i <= 5; i++){
-                if(currentPage-i >= 1) {
-                    pageButtons.unshift(self.createPageButton(currentPage - i));
-                }
-            }
-            pageButtons.push(self.createPageButton(self.state.currentPage));
-            for(let i =1; i <= 5; i++){
-                if(currentPage+i <= self.state.maxPage) {
-                    pageButtons.push(self.createPageButton(currentPage + i));
-                }
-            }
-        }
-
-
 
         return (
             <div className="centriam-table-container">
@@ -211,25 +192,34 @@ export default class CentriamTable extends React.Component {
                 </table>
                 {self.props.isPaginated &&
                     <div className="paging-row">
-                        <button
-                            className="defined previous"
-                            disabled={self.state.currentPage === 1}
-                            onClick={() => {
-                               this.state.changePageFunction(self.state.currentPage-1);
-                            }}
-                        >
-                            Previous
-                        </button>
-                        {pageButtons}
-                        <button
-                            className="defined next"
-                            disabled={self.state.currentPage === self.state.maxPage}
-                            onClick={() => {
-                                this.state.changePageFunction(self.state.currentPage+1);
-                            }}
-                        >
-                            next
-                        </button>
+                        <div className="page-controls">
+                            Go To: <input type="text"
+                                          onChange={(e) => {
+                                              this.setState({pageDisplay: e.target.value});
+                                          }}
+                                          onKeyPress={this.pageJump.bind(this)}
+                                          value={this.state.pageDisplay}
+                                    />
+                        </div>
+                        <div>
+                            {this.state.viewPage} of {this.state.maxPage}
+                        </div>
+                        <div>
+                            <button className="defined"
+                                    disabled={this.state.currentPage === 1}
+                                    onClick={()=>{
+                                        this.state.changePageFunction(this.state.currentPage-1);
+                                    }}
+                            >
+                                <span className="previous"></span>
+                            </button>
+                            <button className="defined"
+                                    disabled={this.state.currentPage === this.state.maxPage}
+                                    onClick={()=>{
+                                        this.state.changePageFunction(this.state.currentPage+1);
+                                    }}
+                            ><span className="next"></span></button>
+                        </div>
                     </div>
                 }
             </div>

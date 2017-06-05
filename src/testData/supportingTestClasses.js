@@ -6,18 +6,18 @@ export class D{
     }
 }
 
-D.D12 = D(12);
-D.D10 = D(10);
-D.D8 = D(8);
-D.D6 = D(6);
+D.D12 = new D(12);
+D.D10 = new  D(10);
+D.D8 = new D(8);
+D.D6 = new  D(6);
 
 
-export class BAB{
+export class BAB {
     constructor(val){
         this.val = val;
     }
 }
 
-BAB.HIGH = BAB("HIGH");
-BAB.MEDIUM = BAB("MEDIUM");
-BAB.LOW = BAB("LOW");
+BAB.HIGH = new BAB("HIGH");
+BAB.MEDIUM = new  BAB("MEDIUM");
+BAB.LOW = new  BAB("LOW");

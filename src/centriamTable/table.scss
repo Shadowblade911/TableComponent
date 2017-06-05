@@ -32,8 +32,29 @@ $stripe-color: #FBFBFB;
   position:relative;
 
   .paging-row {
-    margin-top: 44px;
-    line-height: 24px;
+    text-align:right;
+    height:46px;
+    margin-top: 30px;
+    line-height: 46px;
+
+    font-size:14px;
+
+    div {
+      display:inline-block;
+      margin: 0 5px;
+
+      &.page-controls{
+         input {
+           width: 26px;
+           height:36px;
+           padding: 0 10px;
+           border: 1px solid #EAEAEA;
+           border-radius: 2px;
+           background-color: #ffffff;
+         }
+      }
+    }
+
     button{
 
       text-decoration:none;
@@ -42,51 +63,27 @@ $stripe-color: #FBFBFB;
 
       &.defined {
         font-family: sans, 'FontAwesome';
-        font-size: 13px;
-        position: absolute;
-        border: none;
-        background-color: transparent;
-        text
+        height:36px;
+        width:46px;
+        border: 1px solid #EAEAEA;
+        border-radius: 2px;
+        background-color: #ffffff;
+        margin: 0 2px;
+
         &:disabled {
           opacity: .2;
         }
 
-        &.previous {
-          left: 0;
+        .previous {
           &:before {
-            margin-right: 10px;
-            content: "\f060";
+            content: "\f053";
           }
         }
 
-        &.next {
-          right: 0;
+        .next {
           &:after {
-            margin-left: 10px;
-            content: "\f061";
+            content: "\f054";
           }
-        }
-      }
-
-      &.page-button {
-         background-color: transparent;
-         border:none;
-         margin: 0 5px;
-         line-height:0;
-         width:24px;
-         height:24px;
-         position:relative;
-
-         &.active {
-           border-radius: 100%;
-           background-color: $header-color;
-           color: #fff;
-         }
-
-        span {
-          position:absolute;
-          left:50%;
-          transform: translate(-50%, -50%);
         }
       }
     }

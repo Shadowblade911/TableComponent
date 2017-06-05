@@ -40,8 +40,6 @@ class Favorites{
         this.technique = technique;
         this.color = color;
     }
-
-
 }
 
 
@@ -357,7 +355,10 @@ let data = [
     hiruzen,
     orochimaru,
     tsunade,
-    gai
+    gai,
+    lee,
+    neji,
+    tenten
 ];
 
 

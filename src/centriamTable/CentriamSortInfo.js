@@ -27,11 +27,28 @@ export default class SortInfo {
         return 'no-sort';
     }
 
+    getSortColStyle(col){
+        if(this.column && col.definedKey === this.columnDefinedKey){
+            switch(this.sortType) {
+                case SortInfo.ASCENDING:
+                    return {};
+                case SortInfo.DESCENDING:
+                    return {};
+                default:
+                    return {};
+            }
+        }
+        return {};
+    }
+
     get columnDefinedKey(){
         return this.column && this.column.definedKey;
     }
+
+    static ASCENDING = 'ascending';
+    static DESCENDING = 'descending';
+    static UNSORTED = 'unsorted';
 }
 
-SortInfo.ASCENDING = 'ascending';
-SortInfo.DESCENDING = 'descending';
-SortInfo.UNSORTED = 'unsorted';
+
+
