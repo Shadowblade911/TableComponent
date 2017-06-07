@@ -47,7 +47,7 @@ export default class CentriamTableCell extends React.Component {
      * @return {Function} - a function that returns one of two functions. Input should be a boolean value
      */
     static getSortFunction(){
-        return (isAscending, key) => isAscending ?
+        return (isAscending, key, col) => isAscending ?
             CentriamTableCell.DEFAULT_SORT.bind(this, key) :
             CentriamTableCell.REVERSE_SORT.bind(this, key);
     };

@@ -30,27 +30,59 @@ $stripe-color: #FBFBFB;
   margin-left: 2.5%;
   margin-right: 2.5%;
   position:relative;
+  font-size: 10px;
 
   .paging-row {
     text-align:right;
-    height:46px;
-    margin-top: 30px;
-    line-height: 46px;
+    height:4.6em;
+    margin-top: 2em;
+    line-height: 4.6em;
+    position:relative;
+    color: #53585B;
 
-    font-size:14px;
+
 
     div {
       display:inline-block;
-      margin: 0 5px;
+      margin: 0 .5em;
+
+      span {
+        font-size:1.4em;
+        margin: 0 .7em;
+      }
+
+      &.page-size{
+        left:0;
+        position:absolute;
+        font-family: sans, 'FontAwesome';
+        select {
+          height: 2.4em;
+          width:5em;
+          padding: 0 1em;
+          border: .1em solid #EAEAEA;
+          border-radius: .2em;
+          background-color: #ffffff;
+          -webkit-appearance: none;
+        }
+        &:after{
+          font-size: 2em;
+          position:relative;
+          right: 1.2em;
+          top:.2em;
+          color: #53585B;
+          content: "\f0d7";
+        }
+      }
 
       &.page-controls{
          input {
-           width: 26px;
-           height:36px;
-           padding: 0 10px;
-           border: 1px solid #EAEAEA;
-           border-radius: 2px;
+           width: 2.6em;
+           height:3.6em;
+           padding: 0 .5em;
+           border: .1em solid #EAEAEA;
+           border-radius: .2em;
            background-color: #ffffff;
+           text-align:center;
          }
       }
     }
@@ -63,12 +95,12 @@ $stripe-color: #FBFBFB;
 
       &.defined {
         font-family: sans, 'FontAwesome';
-        height:36px;
-        width:46px;
-        border: 1px solid #EAEAEA;
-        border-radius: 2px;
+        height:3.6em;
+        width:4.4em;
+        border: .1em solid #EAEAEA;
+        border-radius: .2em;
         background-color: #ffffff;
-        margin: 0 2px;
+        margin: 0 .2em;
 
         &:disabled {
           opacity: .2;
@@ -91,7 +123,7 @@ $stripe-color: #FBFBFB;
 
   table.centriam-table {
     width:100%;
-    font-size: 12px;
+    font-size: 1.2em;
     border-spacing: 0;
 
     -webkit-box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);

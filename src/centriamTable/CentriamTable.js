@@ -44,8 +44,7 @@ export default class CentriamTable extends React.Component {
                     currentPage: self.props.currentPage || 1,
                     pageDisplay: self.props.pageDisplay || 1,
                     viewPage: self.props.viewPage || 1,
-                    pageSize:    self.props.pageSize    || 25,
-                    maxPage: self.props.maxPage || Math.ceil(self.state.data.length / ( self.props.pageSize || 25)),
+                    pageSizeOptions: self.props.pageSizeOptions || [5, 10, 15, 25, 50, 100],
                     changePageFunction: (self.props.changePageFunction && self.props.changePageFunction.bind(self)) ||
                         function(page){
                             self.setState({
@@ -53,9 +52,35 @@ export default class CentriamTable extends React.Component {
                                 viewPage: page,
                                 pageDisplay: page
                             });
+                        },
+                    changePageSizeFunction: (self.props.changePageFunction && self.props.changePageFunction.bind(self)) ||
+                        function(e){
+
+                            let newMaxPage =  Math.ceil(self.state.data.length / ( e.target.value));
+                            let newCurrentPage = self.state.currentPage;
+                            let newPageDisplay = self.state.pageDisplay;
+                            let newViewPage = self.state.viewPage;
+                            if(newCurrentPage > newMaxPage){
+                                newCurrentPage = newMaxPage;
+                                newViewPage = newMaxPage;
+                                newPageDisplay = newMaxPage;
+                            }
+
+                            self.setState({
+                                pageSize: e.target.value,
+                                maxPage: newMaxPage,
+                                currentPage: newCurrentPage,
+                                viewPage: newViewPage,
+                                pageDisplay: newPageDisplay,
+                            });
                         }
                 }
-            )
+            );
+            self.state.pageSize = self.state.pageSizeOptions.length ?
+                self.state.pageSizeOptions[Math.floor(self.state.pageSizeOptions.length / 2)] :
+                self.state.pageSizeOptions;
+
+            self.state.maxPage = self.props.maxPage || Math.ceil(self.state.data.length / self.state.pageSize);
         }
 
         self.columns = columnConfigs;
@@ -192,8 +217,17 @@ export default class CentriamTable extends React.Component {
                 </table>
                 {self.props.isPaginated &&
                     <div className="paging-row">
+                        {this.state.pageSizeOptions.length && <div className="page-size">
+                            <span>Rows:</span> <select value={this.state.pageSize} onChange={this.state.changePageSizeFunction.bind(this)}>
+                                {
+                                    this.state.pageSizeOptions.map(function(option){
+                                        return (<option key={option} value={option}>{option}</option>)
+                                    })
+                                }
+                            </select>
+                        </div>}
                         <div className="page-controls">
-                            Go To: <input type="text"
+                            <span>Go To:</span> <input type="text"
                                           onChange={(e) => {
                                               this.setState({pageDisplay: e.target.value});
                                           }}
@@ -202,7 +236,7 @@ export default class CentriamTable extends React.Component {
                                     />
                         </div>
                         <div>
-                            {this.state.viewPage} of {this.state.maxPage}
+                            <span>{this.state.viewPage} of {this.state.maxPage}</span>
                         </div>
                         <div>
                             <button className="defined"
