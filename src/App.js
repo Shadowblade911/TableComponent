@@ -4,7 +4,7 @@ import {data, data2, columns, columns2} from './testData/tableTestData.js';
 import * as dndData from './testData/dndTestData.js';
 import logo from './logo.svg';
 import './App.css';
-
+import './centriamTable/table.css';
 
 const ddData = dndData.data;
 const ddColumns = dndData.columns;

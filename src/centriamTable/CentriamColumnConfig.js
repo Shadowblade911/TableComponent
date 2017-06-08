@@ -29,6 +29,9 @@ export default class CentriamColumnConfig {
         formattingFunction,
         additionalConfig
     }){
+        if(key === undefined){
+            throw new Error('A key must be provided key was undefined');
+        }
         this.key                = key;
         this._propKey           = propKey;
         this.label              = label;

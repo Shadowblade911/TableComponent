@@ -21,12 +21,17 @@ module.exports = function (config) {
             devtool: 'inline-source-map', //just do inline source maps instead of the default
             module: {
                 loaders: [
-                    { test: /\.jsx?$/,
+                    {
+                        test: /\.jsx?$/,
                         loader: 'babel-loader',
                         query: {
                             presets: ['react', 'es2015', 'stage-2']
                         }
-                    }
+                    },
+                    {
+                        test: /\.css$/,
+                        loader: 'style-loader'
+                    },
                 ]
             }
         },

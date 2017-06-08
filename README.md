@@ -27,13 +27,15 @@ in properties to the table.
 #### pagination properties
 if you pass in a truthy value to the isPaginated property, then you can also pass in this information 
 
-| Prop Name          |          Use                                    |   Default                    |
-|--------------------|:------------------------------------------------|------------------------------|
-|currentPage         | The page that you are displaying                | 1                            |
-|viewPage            | what page you appear to be showing              | 1                            |
-|pageSize            | The number of records to display on a page      | 25                           |
-|maxPage             | The number of pages shown                       | (data length / page size) + 1|
-|changePageFunction  | The function called when you change pages       | simple page update           |
+| Prop Name            |          Use                                    |   Default                                   |
+|----------------------|:------------------------------------------------|---------------------------------------------|
+|currentPage           | The page that you are displaying                | 1                                           |
+|viewPage              | what page you appear to be showing              | 1                                           |
+|pageSizeOptions       | the size options for the pages                  | 5, 10, 15, 25, 50 and 100                   |
+|pageSize              | The number of records to display on a page      | the 'middle' value of pageSizeOptions (25)  |
+|maxPage               | The number of pages shown                       | (data length / page size) + 1               |
+|changePageFunction    | The function called when you change pages       | simple page update                          |              
+|changePageSizeFunction| the function called when the page size changes  | simple change page size function            |
 
 #### Header Click
 The header click function is how we are handling sorting. By default, it does an internal sort, and only rearranges the 

@@ -16,7 +16,7 @@ describe('SortInfo', function () {
             expect(typeof sortInfo.getSortColName === 'function').toBeTruthy();
         });
 
-        it('should have a getSortColName function', function(){
+        it('should have a getSortColStyle function', function(){
             expect(typeof sortInfo.getSortColStyle === 'function').toBeTruthy();
         });
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import SortInfo from './CentriamSortInfo.js';
-import './table.css'
 
 function noop(){}
 
@@ -9,7 +8,19 @@ export default class CentriamTable extends React.Component {
      *
      * @param {[]} data - the data to display
      * @param {[CentriamColumnConfig]} columnConfigs - the column configurations
+     * @param {function()} headerClick - a function to be called on the header clicks
+     * @param {function()} rowClick -a function to be called when a user clicks on a row
      * @param {number} rowHeight - the height of the rows on the table
+     * @param {SortInfo} sortInfo - the default sort info
+     * @param {boolean} isPaginated - whether or not this table should be paginated
+     * @param {number} currentPage -the current page. If using back end paging, this should always be 1
+     * @param {number} pageDisplay - this is an editable field for controlling an input
+     * @param {number} viewPage - displaying what the 'current' page is.
+     * @param {[number]} pageSizeOptions - the array of page size options. If left as a single value, the page size cannot be changed
+     * @param {function()} changePageFunction - a function to be called when we change the pages
+     * @param {function()} changePageSizeFunction - a function to be called when we change the page sizes
+     * @param {number} pageSize - the default page size. Will default to the 'middle' value of the page size options
+     * @param {number} maxPage - the last page. Populate this with back end data if paging on the back end
      */
     constructor(props){
         super(props);
@@ -76,7 +87,8 @@ export default class CentriamTable extends React.Component {
                         }
                 }
             );
-            self.state.pageSize = self.state.pageSizeOptions.length ?
+
+            self.state.pageSize = self.props.pageSize ? self.props.pageSize : self.state.pageSizeOptions.length ?
                 self.state.pageSizeOptions[Math.floor(self.state.pageSizeOptions.length / 2)] :
                 self.state.pageSizeOptions;
 
@@ -217,10 +229,10 @@ export default class CentriamTable extends React.Component {
                 </table>
                 {self.props.isPaginated &&
                     <div className="paging-row">
-                        {this.state.pageSizeOptions.length && <div className="page-size">
-                            <span>Rows:</span> <select value={this.state.pageSize} onChange={this.state.changePageSizeFunction.bind(this)}>
+                        {self.state.pageSizeOptions && self.state.pageSizeOptions.length && <div className="page-size">
+                            <span>Rows:</span> <select value={self.state.pageSize} onChange={self.state.changePageSizeFunction.bind(this)}>
                                 {
-                                    this.state.pageSizeOptions.map(function(option){
+                                    self.state.pageSizeOptions.map(function(option){
                                         return (<option key={option} value={option}>{option}</option>)
                                     })
                                 }
