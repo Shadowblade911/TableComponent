@@ -2,6 +2,7 @@
 
 # development
 .idea/
+*.xml
 
 # dependencies
 /node_modules
