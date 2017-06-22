@@ -1,7 +1,7 @@
 {
   "name": "centriam-table",
-  "version": "1.0.1",
-  "main": "./main.js",
+  "version": "1.0.2",
+  "main": "./build/main.js",
   "private": true,
   "dependencies": {
     "font-awesome": "^4.7.0",
