@@ -5,19 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CentriamTableCell = exports.CentriamColumnConfig = exports.CentriamSortInfo = exports.CentriamTable = undefined;
 
-var _CentriamTable = require('./src/centriamTable/CentriamTable.js');
+var _CentriamTable = require('./CentriamTable.js');
 
 var _CentriamTable2 = _interopRequireDefault(_CentriamTable);
 
-var _CentriamSortInfo = require('./src/centriamTable/CentriamSortInfo.js');
+var _CentriamSortInfo = require('./CentriamSortInfo.js');
 
 var _CentriamSortInfo2 = _interopRequireDefault(_CentriamSortInfo);
 
-var _CentriamColumnConfig = require('./src/centriamTable/CentriamColumnConfig.js');
+var _CentriamColumnConfig = require('./CentriamColumnConfig.js');
 
 var _CentriamColumnConfig2 = _interopRequireDefault(_CentriamColumnConfig);
 
-var _CentriamTableCell = require('./src/centriamTable/CentriamTableCell.js');
+var _CentriamTableCell = require('./CentriamTableCell.js');
 
 var _CentriamTableCell2 = _interopRequireDefault(_CentriamTableCell);
 
