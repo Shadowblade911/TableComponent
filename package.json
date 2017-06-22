@@ -1,6 +1,6 @@
 {
   "name": "centriam-table",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "./build/main.js",
   "private": true,
   "dependencies": {
@@ -73,7 +73,7 @@
     "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
     "start-js": "node scripts/start.js",
     "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && node scripts/build.js",
+    "build": "npm run build-css && babel src/centriamTable/ --out-dir build",
     "test": "karma start"
   },
   "jest": {
