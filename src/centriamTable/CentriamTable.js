@@ -95,8 +95,6 @@ export default class CentriamTable extends React.Component {
             self.state.maxPage = self.props.maxPage || Math.ceil(self.state.data.length / self.state.pageSize);
         }
 
-        self.columns = columnConfigs;
-
         //we can use the headerClick to pass in a new sorting function if we don't want to use the default
         self.headerClick = headerClick ? headerClick.bind(self) : function(col){
             let sortFunc = col.sortFunction;
@@ -153,7 +151,7 @@ export default class CentriamTable extends React.Component {
         let data = self.state.data;
 
         let headers = [];
-        for(let col of self.columns){
+        for(let col of self.props.columnConfigs){
             let style = self.state.sortInfo.getSortColStyle(col);
             style['minWidth'] =  col.minimumPixelWidth;
             style['width'] = col.percentageWidth(self.precentGrowth);
@@ -185,8 +183,8 @@ export default class CentriamTable extends React.Component {
         for(let r = 0; r < length; r++) {
             let datum = data[offset + r];
             let cells = [];
-            for(let c = 0; c < self.columns.length; c++){
-                let col = self.columns[c];
+            for(let c = 0; c < self.props.columnConfigs.length; c++){
+                let col = self.props.columnConfigs[c];
 
                 let Component = col.displayComponent;
                 let props = {
