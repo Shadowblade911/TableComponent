@@ -151,8 +151,6 @@ var CentriamTable = function (_React$Component) {
             self.state.maxPage = self.props.maxPage || Math.ceil(self.state.data.length / self.state.pageSize);
         }
 
-        self.columns = columnConfigs;
-
         //we can use the headerClick to pass in a new sorting function if we don't want to use the default
         self.headerClick = headerClick ? headerClick.bind(self) : function (col) {
             var sortFunc = col.sortFunction;
@@ -236,7 +234,7 @@ var CentriamTable = function (_React$Component) {
                     ));
                 };
 
-                for (var _iterator2 = self.columns[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                for (var _iterator2 = self.props.columnConfigs[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                     _loop2();
                 }
             } catch (err) {
@@ -261,8 +259,8 @@ var CentriamTable = function (_React$Component) {
             var _loop = function _loop(r) {
                 var datum = data[offset + r];
                 var cells = [];
-                for (var c = 0; c < self.columns.length; c++) {
-                    var _col = self.columns[c];
+                for (var c = 0; c < self.props.columnConfigs.length; c++) {
+                    var _col = self.props.columnConfigs[c];
 
                     var Component = _col.displayComponent;
                     var props = _extends({
