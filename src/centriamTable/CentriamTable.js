@@ -158,8 +158,12 @@ export default class CentriamTable extends React.Component {
             style['height'] = self.state.rowHeight + 'px';
 
 
+            let sortClassName;
+            if(col.sortable){
+                sortClassName = self.state.sortInfo.getSortColName(col);
+            }
 
-            let sortClassName = self.state.sortInfo.getSortColName(col);
+
 
 
 
@@ -168,7 +172,10 @@ export default class CentriamTable extends React.Component {
                     key={col.key}
                     style={style}
                     className={sortClassName}
-                    onClick={() => this.headerClick(col)}
+                    onClick={col.sortable ?
+                        () => this.headerClick(col)
+                        : undefined
+                    }
                 >
                     <span className={"text-container " + sortClassName} >
                         {col.label}

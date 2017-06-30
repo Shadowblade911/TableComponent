@@ -68,7 +68,8 @@ This is how the table interacts with the data. These describe how to map data to
 |minWidth            | The minimum width of the column in pixels        | null                         |
 |growth              | How many shares of growth this column gets       | null                         |
 |formattingFunction  | A function to format the value before display    | null                         |
-|additionalConfig    | any additional parameters for the cell           | null                         | 
+|additionalConfig    | any additional parameters for the cell           | null                         |
+|sortable            | whether or not the column is sortable            | true                         |
 ---
 
 ### Centriam Table Cell

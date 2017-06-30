@@ -214,7 +214,10 @@ var CentriamTable = function (_React$Component) {
                     style['width'] = col.percentageWidth(self.precentGrowth);
                     style['height'] = self.state.rowHeight + 'px';
 
-                    var sortClassName = self.state.sortInfo.getSortColName(col);
+                    var sortClassName = void 0;
+                    if (col.sortable) {
+                        sortClassName = self.state.sortInfo.getSortColName(col);
+                    }
 
                     headers.push(_react2.default.createElement(
                         'th',
@@ -222,9 +225,9 @@ var CentriamTable = function (_React$Component) {
                             key: col.key,
                             style: style,
                             className: sortClassName,
-                            onClick: function onClick() {
+                            onClick: col.sortable ? function () {
                                 return _this2.headerClick(col);
-                            }
+                            } : undefined
                         },
                         _react2.default.createElement(
                             'span',

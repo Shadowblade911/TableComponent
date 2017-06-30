@@ -419,6 +419,7 @@ let columns = [
         displayComponent: TeacherCell,
         minWidth: 50,
         growth: 2,
+        sortable: false,
     })
 ];
 

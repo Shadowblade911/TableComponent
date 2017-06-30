@@ -32,6 +32,7 @@ var CentriamColumnConfig = function () {
      * @param {Number} growth - how much of cell should grow in comparision to the other sections
      * @param {Function|null} formattingFunction - a formatting function to be called before displaying the cell contents
      * @param {{}|null|undefined} additionalConfig - any additional props that need to be passed
+     * @param {boolean} sortable - if the column is sortable
      */
     function CentriamColumnConfig(_ref) {
         var key = _ref.key,
@@ -43,7 +44,9 @@ var CentriamColumnConfig = function () {
             minWidth = _ref.minWidth,
             growth = _ref.growth,
             formattingFunction = _ref.formattingFunction,
-            additionalConfig = _ref.additionalConfig;
+            additionalConfig = _ref.additionalConfig,
+            _ref$sortable = _ref.sortable,
+            sortable = _ref$sortable === undefined ? true : _ref$sortable;
 
         _classCallCheck(this, CentriamColumnConfig);
 
@@ -58,6 +61,7 @@ var CentriamColumnConfig = function () {
         this.growth = growth;
         this.formattingFunction = formattingFunction;
         this.additionalConfig = additionalConfig;
+        this.sortable = sortable;
     }
 
     _createClass(CentriamColumnConfig, [{

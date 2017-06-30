@@ -18,6 +18,7 @@ export default class CentriamColumnConfig {
      * @param {Number} growth - how much of cell should grow in comparision to the other sections
      * @param {Function|null} formattingFunction - a formatting function to be called before displaying the cell contents
      * @param {{}|null|undefined} additionalConfig - any additional props that need to be passed
+     * @param {boolean} sortable - if the column is sortable
      */
     constructor({
         key,
@@ -27,7 +28,8 @@ export default class CentriamColumnConfig {
         minWidth,
         growth,
         formattingFunction,
-        additionalConfig
+        additionalConfig,
+        sortable=true,
     }){
         if(key === undefined){
             throw new Error('A key must be provided key was undefined');
@@ -40,6 +42,7 @@ export default class CentriamColumnConfig {
         this.growth             = growth;
         this.formattingFunction = formattingFunction;
         this.additionalConfig   = additionalConfig;
+        this.sortable           = sortable;
     }
 
 
