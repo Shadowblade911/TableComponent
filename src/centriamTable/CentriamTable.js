@@ -64,7 +64,7 @@ export default class CentriamTable extends React.Component {
                                 pageDisplay: page
                             });
                         },
-                    changePageSizeFunction: (self.props.changePageFunction && self.props.changePageFunction.bind(self)) ||
+                    changePageSizeFunction: (self.props.changePageSizeFunction && self.props.changePageSizeFunction.bind(self)) ||
                         function(e){
 
                             let newMaxPage =  Math.ceil(self.state.data.length / ( e.target.value));
