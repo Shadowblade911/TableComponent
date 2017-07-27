@@ -124,7 +124,7 @@ var CentriamTable = function (_React$Component) {
                         pageDisplay: page
                     });
                 },
-                changePageSizeFunction: self.props.changePageFunction && self.props.changePageFunction.bind(self) || function (e) {
+                changePageSizeFunction: self.props.changePageSizeFunction && self.props.changePageSizeFunction.bind(self) || function (e) {
 
                     var newMaxPage = Math.ceil(self.state.data.length / e.target.value);
                     var newCurrentPage = self.state.currentPage;
