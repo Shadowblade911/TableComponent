@@ -37,13 +37,17 @@ var CentriamTable = function (_React$Component) {
      * @param {function()} rowClick -a function to be called when a user clicks on a row
      * @param {number} rowHeight - the height of the rows on the table
      * @param {SortInfo} sortInfo - the default sort info
-     * @param {boolean} isPaginated - whether or not this table should be paginated
+     * @param {"frontend"|"backend"} paginationMode - How to handle pagination
+     *                          "frontend": internally, by the library
+     *                          "backend": externally, by the library user through callbacks
+     * @param {boolean} isPaginated - (deprecated) whether or not this table should be paginated on the frontend
      * @param {number} currentPage -the current page. If using back end paging, this should always be 1
      * @param {number} pageDisplay - this is an editable field for controlling an input
      * @param {number} viewPage - displaying what the 'current' page is.
      * @param {[number]} pageSizeOptions - the array of page size options. If left as a single value, the page size cannot be changed
      * @param {function()} changePageFunction - a function to be called when we change the pages
-     * @param {function()} changePageSizeFunction - a function to be called when we change the page sizes
+     * @param {function(MouseEvent)} changePageSizeFunction - a function to be called when we change the page sizes
+     * @param {function(int)} changePageSizeFunctionInt - similar to changePageSizeFunction, but called with the new value
      * @param {number} pageSize - the default page size. Will default to the 'middle' value of the page size options
      * @param {number} maxPage - the last page. Populate this with back end data if paging on the back end
      */
@@ -111,7 +115,7 @@ var CentriamTable = function (_React$Component) {
 
         };
 
-        if (!!self.props.isPaginated) {
+        if (self.props.paginationMode || self.props.isPaginated) {
             self.state = Object.assign({}, self.state, {
                 currentPage: self.props.currentPage || 1,
                 pageDisplay: self.props.pageDisplay || 1,
@@ -124,7 +128,9 @@ var CentriamTable = function (_React$Component) {
                         pageDisplay: page
                     });
                 },
-                changePageSizeFunction: self.props.changePageSizeFunction && self.props.changePageSizeFunction.bind(self) || function (e) {
+                changePageSizeFunction: self.props.changePageSizeFunction ? self.props.changePageSizeFunction.bind(self) : self.props.changePageSizeFunctionInt ? function (mouseEvent) {
+                    self.props.changePageSizeFunctionInt.call(self, mouseEvent.target.value);
+                } : function (e) {
 
                     var newMaxPage = Math.ceil(self.state.data.length / e.target.value);
                     var newCurrentPage = self.state.currentPage;
@@ -256,8 +262,9 @@ var CentriamTable = function (_React$Component) {
             }
 
             var rows = [];
-            var length = self.props.isPaginated ? self.state.pageSize : data.length;
-            var offset = self.props.isPaginated ? self.state.pageSize * (self.state.currentPage - 1) : 0;
+            var frontendPaginate = self.props.paginationMode === 'frontend' || self.props.isPaginated && self.props.paginationMode !== 'backend';
+            var length = frontendPaginate ? self.state.pageSize : data.length;
+            var offset = frontendPaginate ? self.state.pageSize * (self.state.currentPage - 1) : 0;
 
             var _loop = function _loop(r) {
                 var datum = data[offset + r];
