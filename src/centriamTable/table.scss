@@ -67,6 +67,7 @@ $stripe-color: #FBFBFB;
         &:after{
           font-size: 2em;
           position:relative;
+          pointer-events: none;
           right: 1.2em;
           top:.2em;
           color: #53585B;
