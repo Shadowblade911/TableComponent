@@ -2,6 +2,7 @@
 
 # development
 .idea/
+*.iml
 *.xml
 
 # dependencies
