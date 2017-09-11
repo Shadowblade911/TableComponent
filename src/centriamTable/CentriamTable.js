@@ -186,7 +186,7 @@ export default class CentriamTable extends React.Component {
                         : undefined
                     }
                 >
-                    <div className={sortClassName} style={{position: 'relative', display: 'inline-block'}}>
+                    <div className={sortClassName} style={{position: 'relative', display: 'table'}}>
                         <span className={"text-container " + sortClassName} >
                             {col.label}
                         </span>
