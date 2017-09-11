@@ -138,25 +138,27 @@ $stripe-color: #FBFBFB;
       }
 
       th {
-        .text-container {
-          font-family: sans, 'FontAwesome';
-          position: relative;
+        div {
+            &.no-sort:before {
+              content: "\f0dc";
+              @include sort-parts();
+            }
 
-          &.no-sort:before {
-            content: "\f0dc";
-            @include sort-parts();
-          }
+            &.asc-sort:before {
+              content: "\f0de";
+              @include sort-parts();
+              color: #AAF;
+            }
+            &.desc-sort:before {
+              content: "\f0dd";
+              @include sort-parts();
+              color: #FAA;
+            }
 
-          &.asc-sort:before {
-            content: "\f0de";
-            @include sort-parts();
-            color: #AAF;
-          }
-          &.desc-sort:before {
-            content: "\f0dd";
-            @include sort-parts();
-            color: #FAA;
-          }
+            .text-container {
+              font-family: sans, 'FontAwesome';
+              position: relative;
+            }
         }
         background-color: $header-color;
         color: $header-text-color;
@@ -165,4 +167,3 @@ $stripe-color: #FBFBFB;
     }
   }
 }
-

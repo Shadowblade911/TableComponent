@@ -236,9 +236,13 @@ var CentriamTable = function (_React$Component) {
                             } : undefined
                         },
                         _react2.default.createElement(
-                            'span',
-                            { className: "text-container " + sortClassName },
-                            col.label
+                            'div',
+                            { className: sortClassName, style: { position: 'relative', display: 'table' } },
+                            _react2.default.createElement(
+                                'span',
+                                { className: "text-container " + sortClassName },
+                                col.label
+                            )
                         )
                     ));
                 };
