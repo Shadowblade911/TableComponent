@@ -186,9 +186,11 @@ export default class CentriamTable extends React.Component {
                         : undefined
                     }
                 >
-                    <span className={"text-container " + sortClassName} >
-                        {col.label}
-                    </span>
+                    <div className={sortClassName} style={{position: 'relative', display: 'inline-block'}}>
+                        <span className={"text-container " + sortClassName} >
+                            {col.label}
+                        </span>
+                    </div>
                 </th>
             );
         }
@@ -197,7 +199,7 @@ export default class CentriamTable extends React.Component {
         let frontendPaginate = self.props.paginationMode === 'frontend' || (self.props.isPaginated && self.props.paginationMode !== 'backend');
         let length = frontendPaginate ? self.state.pageSize: data.length;
         let offset = frontendPaginate ? self.state.pageSize * (self.state.currentPage - 1) : 0;
-        
+
         for(let r = 0; r < length; r++) {
             let datum = data[offset + r];
             let cells = [];
