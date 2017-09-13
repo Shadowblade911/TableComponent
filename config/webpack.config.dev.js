@@ -63,6 +63,7 @@ module.exports = {
                 loader: 'eslint-loader',
                 enforce: "pre",
                 include: paths.appSrc,
+
             },
             {
                 exclude: [
