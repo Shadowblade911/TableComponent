@@ -132,8 +132,14 @@ $stripe-color: #FBFBFB;
 
     tr {
       background-color: #fff;
+
       &:nth-child(even) {
         background-color: $stripe-color;
+      }
+
+      &.selected {
+        background-color: #99f;
+        border: 1px solid  #228;
       }
 
       th {
