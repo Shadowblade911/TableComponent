@@ -144,6 +144,11 @@ $stripe-color: #FBFBFB;
       }
 
       th {
+        .text-container {
+          font-family: sans, 'FontAwesome';
+          position: relative;
+
+      th {
         div {
             &.no-sort:before {
               content: "\f0dc";

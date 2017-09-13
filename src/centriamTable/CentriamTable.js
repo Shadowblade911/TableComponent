@@ -59,6 +59,12 @@ export default class CentriamTable extends React.Component {
         }.bind(this) : rowClick;
 
 
+        this.rowClick = rowSelection ? function(data){
+            this.setState(Object.assign({}, this.state, {selectedRow : data}));
+            rowClick(data);
+        }.bind(this) : rowClick;
+
+
         if(self.props.paginationMode || self.props.isPaginated){
             self.state = Object.assign({},
                 self.state,

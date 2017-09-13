@@ -124,6 +124,11 @@ var CentriamTable = function (_React$Component) {
             rowClick(data);
         }.bind(_this) : rowClick;
 
+        _this.rowClick = rowSelection ? function (data) {
+            this.setState(Object.assign({}, this.state, { selectedRow: data }));
+            rowClick(data);
+        }.bind(_this) : rowClick;
+
         if (self.props.paginationMode || self.props.isPaginated) {
             self.state = Object.assign({}, self.state, {
                 currentPage: self.props.currentPage || 1,
