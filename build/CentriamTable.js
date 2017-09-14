@@ -292,7 +292,7 @@ var CentriamTable = function (_React$Component) {
 
                     var Component = _col.displayComponent;
                     var props = _extends({
-                        key: +new Date() + ':' + r + ':' + c + ':' + _col.key,
+                        key: datum[_col.propKey],
                         data: datum,
                         dataKey: _col.propKey,
                         minWidth: _col.minimumPixelWidth,
