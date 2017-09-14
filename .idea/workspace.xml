@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="33c276f5-150c-4986-9117-0e46f4c20f79" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/CentriamTable.js" afterPath="$PROJECT_DIR$/build/CentriamTable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/centriamTable/CentriamTable.js" afterPath="$PROJECT_DIR$/src/centriamTable/CentriamTable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/centriamTable/table.scss" afterPath="$PROJECT_DIR$/src/centriamTable/table.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tests/CentriamTable.spec.js" afterPath="$PROJECT_DIR$/src/tests/CentriamTable.spec.js" />
     </list>
     <ignored path="centriam-table.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -832,7 +826,7 @@
       <workItem from="1498141023099" duration="9372000" />
       <workItem from="1498753168881" duration="242000" />
       <workItem from="1505338650389" duration="346000" />
-      <workItem from="1505400937680" duration="1176000" />
+      <workItem from="1505400937680" duration="1368000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit... Hopefully">
       <created>1493997949733</created>
@@ -939,11 +933,18 @@
       <option name="project" value="LOCAL" />
       <updated>1505338986978</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Added hook to check for selecting rows. &#10;&#10;&#10;Token unit test.">
+      <created>1505402247977</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1505402247977</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190764000" />
+    <option name="totallyTimeSpent" value="190956000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3840" y="24" width="1920" height="1056" extended-state="6" />
@@ -1048,7 +1049,8 @@
     <MESSAGE value="Trying this again..." />
     <MESSAGE value="Forgot to merge code." />
     <MESSAGE value="Updating JSON to show new feature had been added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating JSON to show new feature had been added." />
+    <MESSAGE value="Added hook to check for selecting rows. &#10;&#10;&#10;Token unit test." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added hook to check for selecting rows. &#10;&#10;&#10;Token unit test." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
