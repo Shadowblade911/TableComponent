@@ -167,9 +167,9 @@ export default class CentriamTable extends React.Component {
     renderRowId = function(data){
         let cols = [];
         for(let col of this.props.columnConfigs){
-            cols.push(data[col.propKey]);
+            cols.push(data[col.propKey] ? data[col.propKey].toString() : '-');
         }
-        return cols.join(':');
+        return cols.join(':').replace(/ /g, '_');
     };
 
     render() {
@@ -222,7 +222,7 @@ export default class CentriamTable extends React.Component {
 
                 let Component = col.displayComponent;
                 let props = {
-                    key: this.renderRowId(datum) + ':' + col.propKey,
+                    key: this.renderRowId(datum) + ':' + col.definedKey,
                     data: datum,
                     dataKey: col.propKey,
                     minWidth: col.minimumPixelWidth,
