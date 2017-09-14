@@ -169,7 +169,7 @@ export default class CentriamTable extends React.Component {
         for(let col of this.props.columnConfigs){
             cols += (data[col.propKey] ? data[col.propKey].toString() : '-') + ':';
         }
-        return cols.replace(/ /g, '_');
+        return cols;
     };
 
     render() {
