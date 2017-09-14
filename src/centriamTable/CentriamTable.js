@@ -3,6 +3,7 @@ import SortInfo from './CentriamSortInfo.js';
 
 function noop(){}
 
+
 export default class CentriamTable extends React.Component {
     /**
      *
@@ -10,6 +11,7 @@ export default class CentriamTable extends React.Component {
      * @param {[CentriamColumnConfig]} columnConfigs - the column configurations
      * @param {function()} headerClick - a function to be called on the header clicks
      * @param {function()} rowClick -a function to be called when a user clicks on a row
+     * @param {boolean} rowSelection - let the table component handle row selection.
      * @param {number} rowHeight - the height of the rows on the table
      * @param {SortInfo} sortInfo - the default sort info
      * @param {"frontend"|"backend"} paginationMode - How to handle pagination
@@ -29,7 +31,7 @@ export default class CentriamTable extends React.Component {
     constructor(props){
         super(props);
 
-        let {data, columnConfigs, headerClick} = props;
+        let {data, rowSelection=true, onSelectionChanged=noop,  rowClick=noop, columnConfigs, headerClick} = props;
 
         let self = this;
 
@@ -47,10 +49,18 @@ export default class CentriamTable extends React.Component {
         self.state = {
             data: props.data,
             rowHeight: props.rowHeight,
-            rowClick: props.rowClick  || noop, // noop function
             sortInfo: props.sortInfo || new SortInfo(),
-
+            selectedRow: props.selectedRow
         };
+
+        this.rowClick = rowSelection ? function(data){
+            if(this.state.selectedRow !== data){
+                onSelectionChanged(data);
+            }
+            this.setState(Object.assign({}, this.state, {selectedRow : data}));
+            rowClick(data);
+        }.bind(this) : rowClick;
+
 
         if(self.props.paginationMode || self.props.isPaginated){
             self.state = Object.assign({},
@@ -225,7 +235,8 @@ export default class CentriamTable extends React.Component {
                 <tr
                     key={+(new Date()) +  r}
                     style={{height: self.state.rowHeight + 'px'}}
-                    onClick={()=>self.state.rowClick(datum)}
+                    onClick={()=>self.rowClick(datum)}
+                    className={self.state.selectedRow === datum ? "selected" : ''}
                 >
                     {cells}
                 </tr>
@@ -233,8 +244,11 @@ export default class CentriamTable extends React.Component {
             rows.push(row);
         }
 
+
+        let className = this.props.className ? this.props.className + " centriam-table-container" : 'centriam-table-container';
+
         return (
-            <div className="centriam-table-container">
+            <div className={className}>
                 <table className="centriam-table">
                     <thead>
                     <tr>

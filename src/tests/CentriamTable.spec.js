@@ -38,6 +38,18 @@ describe("Table", function () {
             expect(function(){return component.headerClick() === returnOne()}).toBeTruthy()
         });
 
+        it("should be able to take in a onSelectionChanged click function", function(){
+            component = ReactDOM.render(
+                <CentriamTable
+                    data={data}
+                    columnConfigs={columns}
+                    onSelectionChanged={returnOne}
+                />,
+                node);
+
+            expect(function(){return component.onSelectionChanged() === returnOne()}).toBeTruthy()
+        });
+
 
         it("should be able to take in a change page function if paginated", function(){
             component = ReactDOM.render(

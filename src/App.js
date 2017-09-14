@@ -33,7 +33,9 @@ class App extends React.Component {
         <CentriamTable
             data={ddData}
             columnConfigs={ddColumns}
+            selectedRow={ddData[0]}
             rowClick={rowClick}
+            onSelectionChanged={data=>console.log(data)}
             rowHeight={30}
             isPaginated={true}
             pageSize={10}
@@ -42,6 +44,7 @@ class App extends React.Component {
         <div style={{width:"50%", marginTop:'50px', display:'inline-block', verticalAlign:'top'}}>
             <CentriamTable
                 data={data2}
+                rowSelection={false}
                 headerClick={changeData}
                 columnConfigs={columns2}
             />

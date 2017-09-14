@@ -23,6 +23,11 @@ in properties to the table.
 |headerClick  | The function called when the headers are clicked| an internal sort             |
 |sortInfo     | an object describing the sorting information    | centriam default sort        |
 |isPaginated  | if the table should be paginated                | false                        |
+|rowSelection | Have the table allow 'selection' of rows        | true                         |
+|selectedRow  | the currently selected row                      | null                         |
+
+Note: if you allow rowSelection, and have your own rowClick function, the table will select the row and set it's internal 
+state before calling your row click function. 
 
 #### pagination properties
 if you pass in a truthy value to the isPaginated property, then you can also pass in this information 
@@ -36,6 +41,7 @@ if you pass in a truthy value to the isPaginated property, then you can also pas
 |maxPage               | The number of pages shown                       | (data length / page size) + 1               |
 |changePageFunction    | The function called when you change pages       | simple page update                          |              
 |changePageSizeFunction| the function called when the page size changes  | simple change page size function            |
+
 
 #### Header Click
 The header click function is how we are handling sorting. By default, it does an internal sort, and only rearranges the 
