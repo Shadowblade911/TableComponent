@@ -35,6 +35,7 @@ class App extends React.Component {
             columnConfigs={ddColumns}
             selectedRow={ddData[0]}
             rowClick={rowClick}
+            onSelectionChanged={data=>console.log(data)}
             rowHeight={30}
             isPaginated={true}
             pageSize={10}

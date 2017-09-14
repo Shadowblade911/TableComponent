@@ -71,6 +71,8 @@ var CentriamTable = function (_React$Component) {
         var data = props.data,
             _props$rowSelection = props.rowSelection,
             rowSelection = _props$rowSelection === undefined ? true : _props$rowSelection,
+            _props$onSelectionCha = props.onSelectionChanged,
+            onSelectionChanged = _props$onSelectionCha === undefined ? noop : _props$onSelectionCha,
             _props$rowClick = props.rowClick,
             rowClick = _props$rowClick === undefined ? noop : _props$rowClick,
             columnConfigs = props.columnConfigs,
@@ -120,11 +122,9 @@ var CentriamTable = function (_React$Component) {
         };
 
         _this.rowClick = rowSelection ? function (data) {
-            this.setState(Object.assign({}, this.state, { selectedRow: data }));
-            rowClick(data);
-        }.bind(_this) : rowClick;
-
-        _this.rowClick = rowSelection ? function (data) {
+            if (this.state.selectedRow !== data) {
+                onSelectionChanged(data);
+            }
             this.setState(Object.assign({}, this.state, { selectedRow: data }));
             rowClick(data);
         }.bind(_this) : rowClick;

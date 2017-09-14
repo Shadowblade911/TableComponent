@@ -31,7 +31,7 @@ export default class CentriamTable extends React.Component {
     constructor(props){
         super(props);
 
-        let {data, rowSelection=true,  rowClick=noop, columnConfigs, headerClick} = props;
+        let {data, rowSelection=true, onSelectionChanged=noop,  rowClick=noop, columnConfigs, headerClick} = props;
 
         let self = this;
 
@@ -54,12 +54,9 @@ export default class CentriamTable extends React.Component {
         };
 
         this.rowClick = rowSelection ? function(data){
-            this.setState(Object.assign({}, this.state, {selectedRow : data}));
-            rowClick(data);
-        }.bind(this) : rowClick;
-
-
-        this.rowClick = rowSelection ? function(data){
+            if(this.state.selectedRow !== data){
+                onSelectionChanged(data);
+            }
             this.setState(Object.assign({}, this.state, {selectedRow : data}));
             rowClick(data);
         }.bind(this) : rowClick;
