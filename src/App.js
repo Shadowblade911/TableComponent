@@ -52,6 +52,7 @@ class App extends React.Component {
           <div style={{width:"50%", marginTop:'50px', display:'inline-block',verticalAlign:'top'}}>
               <CentriamTable
                   data={data}
+                  rowSelection={false}
                   rowHeight={60}
                   columnConfigs={columns}
               />

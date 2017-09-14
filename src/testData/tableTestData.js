@@ -4,6 +4,7 @@ import RankCell from '../sample_extensions/RankCell.js';
 import TeacherCell from '../sample_extensions/TeacherCell.js';
 import FavoriteCell from '../sample_extensions/FavoriteCell.js';
 
+import IterationCell from '../sample_extensions/IterationCell.js';
 
 
 /**
@@ -445,6 +446,11 @@ let columns2 = [
         displayComponent: CentriamTableCell,
         minWidth: 50,
         growth: 5,
+    }),
+    new CentriamColumnConfig({
+        key: 'iteration',
+        displayComponent: IterationCell,
+        sortable:false,
     })
 ];
 

@@ -57,16 +57,7 @@ var CentriamTable = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (CentriamTable.__proto__ || Object.getPrototypeOf(CentriamTable)).call(this, props));
 
-        _this.pageJump = function (e) {
-            if (e.which === 13 || e.keyCode === 13) {
-                var val = e.target.value;
-                val = Number(val);
-                if (!isNaN(val)) {
-                    val = val < 1 ? 1 : val > this.state.maxPage ? this.state.maxPage : val;
-                    this.state.currentPage !== val && this.state.changePageFunction(val);
-                }
-            }
-        };
+        _initialiseProps.call(_this);
 
         var data = props.data,
             _props$rowSelection = props.rowSelection,
@@ -292,7 +283,7 @@ var CentriamTable = function (_React$Component) {
 
                     var Component = _col.displayComponent;
                     var props = _extends({
-                        key: +new Date() + ':' + r + ':' + c + ':' + _col.key,
+                        key: _this2.renderRowId(datum) + ':' + _col.definedKey,
                         data: datum,
                         dataKey: _col.propKey,
                         minWidth: _col.minimumPixelWidth,
@@ -305,7 +296,7 @@ var CentriamTable = function (_React$Component) {
                 var row = _react2.default.createElement(
                     'tr',
                     {
-                        key: +new Date() + r,
+                        key: _this2.renderRowId(datum),
                         style: { height: self.state.rowHeight + 'px' },
                         onClick: function onClick() {
                             return self.rowClick(datum);
@@ -427,6 +418,49 @@ var CentriamTable = function (_React$Component) {
 
     return CentriamTable;
 }(_react2.default.Component);
+
+var _initialiseProps = function _initialiseProps() {
+    this.pageJump = function (e) {
+        if (e.which === 13 || e.keyCode === 13) {
+            var val = e.target.value;
+            val = Number(val);
+            if (!isNaN(val)) {
+                val = val < 1 ? 1 : val > this.state.maxPage ? this.state.maxPage : val;
+                this.state.currentPage !== val && this.state.changePageFunction(val);
+            }
+        }
+    };
+
+    this.renderRowId = function (data) {
+        var cols = [];
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+            for (var _iterator3 = this.props.columnConfigs[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var _col2 = _step3.value;
+
+                cols.push(data[_col2.propKey] ? data[_col2.propKey].toString() : '-');
+            }
+        } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                    _iterator3.return();
+                }
+            } finally {
+                if (_didIteratorError3) {
+                    throw _iteratorError3;
+                }
+            }
+        }
+
+        return cols.join(':').replace(/ /g, '_');
+    };
+};
 
 exports.default = CentriamTable;
 ;

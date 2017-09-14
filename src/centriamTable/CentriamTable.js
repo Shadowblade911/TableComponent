@@ -164,6 +164,14 @@ export default class CentriamTable extends React.Component {
         }
     };
 
+    renderRowId = function(data){
+        let cols = '';
+        for(let col of this.props.columnConfigs){
+            cols += (data[col.propKey] ? data[col.propKey].toString() : '-') + ':';
+        }
+        return cols;
+    };
+
     render() {
         let self = this;
 
@@ -181,10 +189,6 @@ export default class CentriamTable extends React.Component {
             if(col.sortable){
                 sortClassName = self.state.sortInfo.getSortColName(col);
             }
-
-
-
-
 
             headers.push(
                 <th
@@ -218,7 +222,7 @@ export default class CentriamTable extends React.Component {
 
                 let Component = col.displayComponent;
                 let props = {
-                    key: +(new Date()) + ':' +  r + ':' + c + ':' + col.key,
+                    key: this.renderRowId(datum) + col.definedKey,
                     data: datum,
                     dataKey: col.propKey,
                     minWidth: col.minimumPixelWidth,
@@ -233,7 +237,7 @@ export default class CentriamTable extends React.Component {
             }
             let row =  (
                 <tr
-                    key={+(new Date()) +  r}
+                    key={this.renderRowId(datum)}
                     style={{height: self.state.rowHeight + 'px'}}
                     onClick={()=>self.rowClick(datum)}
                     className={self.state.selectedRow === datum ? "selected" : ''}
