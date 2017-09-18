@@ -222,7 +222,7 @@ export default class CentriamTable extends React.Component {
 
                 let Component = col.displayComponent;
                 let props = {
-                    key: this.renderRowId(datum) + col.definedKey,
+                    key: r + this.renderRowId(datum) + col.definedKey,
                     data: datum,
                     dataKey: col.propKey,
                     minWidth: col.minimumPixelWidth,
