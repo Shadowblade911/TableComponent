@@ -237,7 +237,7 @@ export default class CentriamTable extends React.Component {
             }
             let row =  (
                 <tr
-                    key={this.renderRowId(datum)}
+                    key={r + this.renderRowId(datum)}
                     style={{height: self.state.rowHeight + 'px'}}
                     onClick={()=>self.rowClick(datum)}
                     className={self.state.selectedRow === datum ? "selected" : ''}
