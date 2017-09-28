@@ -66,6 +66,8 @@ export default class CentriamTable extends React.Component {
             self.state = Object.assign({},
                 self.state,
                 {
+                    count: self.props.count || null,
+                    rowType: self.props.rowType || "Rows",
                     currentPage: self.props.currentPage || 1,
                     pageDisplay: self.props.pageDisplay || 1,
                     viewPage: self.props.viewPage || 1,
@@ -263,10 +265,19 @@ export default class CentriamTable extends React.Component {
                         {rows}
                     </tbody>
                 </table>
+
                 {self.props.isPaginated &&
                     <div className="paging-row">
+                        {self.state.count && <div className="row-count">
+                            <span>
+                                Total {self.state.rowType}:&nbsp;{self.state.count}
+                            </span>
+                        </div>}
                         {self.state.pageSizeOptions && self.state.pageSizeOptions.length && <div className="page-size">
-                            <span>Rows:</span> <select value={self.state.pageSize} onChange={self.state.changePageSizeFunction.bind(this)}>
+                            <span>{this.state.rowType} Per Page:</span>
+                            <select
+                                value={self.state.pageSize}
+                                onChange={self.state.changePageSizeFunction.bind(this)}>
                                 {
                                     self.state.pageSizeOptions.map(function(option){
                                         return (<option key={option} value={option}>{option}</option>)
