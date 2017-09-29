@@ -89,4 +89,5 @@ You can write your own sorting functions for your cells, by adding a static meth
  the key on which to sort, and the column config 
  
 ### Run this and commit changes before making PR:
+npm install -g babel-cli
 npm run build-css && babel src/centriamTable/ --out-dir build
