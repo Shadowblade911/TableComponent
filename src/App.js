@@ -37,6 +37,8 @@ class App extends React.Component {
             rowClick={rowClick}
             onSelectionChanged={data=>console.log(data)}
             rowHeight={30}
+            rowType={"Customers"}
+            count={ddData.length}
             isPaginated={true}
             pageSize={10}
         />
