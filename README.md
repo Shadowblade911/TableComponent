@@ -87,3 +87,7 @@ render method will let you customize the display for example.
 You can write your own sorting functions for your cells, by adding a static method on constructor called getSortFunction.
  The getSortFunction should return a function that takes, in order, a boolean value to sort by ascending or descending,
  the key on which to sort, and the column config 
+ 
+### Run this and commit changes before making PR:
+npm install -g babel-cli
+npm run build-css && babel src/centriamTable/ --out-dir build
