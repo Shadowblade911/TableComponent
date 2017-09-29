@@ -122,6 +122,8 @@ var CentriamTable = function (_React$Component) {
 
         if (self.props.paginationMode || self.props.isPaginated) {
             self.state = Object.assign({}, self.state, {
+                count: self.props.count || null,
+                rowType: self.props.rowType || "Rows",
                 currentPage: self.props.currentPage || 1,
                 pageDisplay: self.props.pageDisplay || 1,
                 viewPage: self.props.viewPage || 1,
@@ -283,7 +285,7 @@ var CentriamTable = function (_React$Component) {
 
                     var Component = _col.displayComponent;
                     var props = _extends({
-                        key: _this2.renderRowId(datum) + ':' + _col.definedKey,
+                        key: r + _this2.renderRowId(datum) + _col.definedKey,
                         data: datum,
                         dataKey: _col.propKey,
                         minWidth: _col.minimumPixelWidth,
@@ -296,7 +298,7 @@ var CentriamTable = function (_React$Component) {
                 var row = _react2.default.createElement(
                     'tr',
                     {
-                        key: _this2.renderRowId(datum),
+                        key: r + _this2.renderRowId(datum),
                         style: { height: self.state.rowHeight + 'px' },
                         onClick: function onClick() {
                             return self.rowClick(datum);
@@ -338,18 +340,32 @@ var CentriamTable = function (_React$Component) {
                 self.props.isPaginated && _react2.default.createElement(
                     'div',
                     { className: 'paging-row' },
+                    self.state.count && _react2.default.createElement(
+                        'div',
+                        { className: 'row-count' },
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            'Total ',
+                            self.state.rowType,
+                            ':\xA0',
+                            self.state.count
+                        )
+                    ),
                     self.state.pageSizeOptions && self.state.pageSizeOptions.length && _react2.default.createElement(
                         'div',
                         { className: 'page-size' },
                         _react2.default.createElement(
                             'span',
                             null,
-                            'Rows:'
+                            this.state.rowType,
+                            ' Per Page:'
                         ),
-                        ' ',
                         _react2.default.createElement(
                             'select',
-                            { value: self.state.pageSize, onChange: self.state.changePageSizeFunction.bind(this) },
+                            {
+                                value: self.state.pageSize,
+                                onChange: self.state.changePageSizeFunction.bind(this) },
                             self.state.pageSizeOptions.map(function (option) {
                                 return _react2.default.createElement(
                                     'option',
@@ -432,7 +448,7 @@ var _initialiseProps = function _initialiseProps() {
     };
 
     this.renderRowId = function (data) {
-        var cols = [];
+        var cols = '';
         var _iteratorNormalCompletion3 = true;
         var _didIteratorError3 = false;
         var _iteratorError3 = undefined;
@@ -441,7 +457,7 @@ var _initialiseProps = function _initialiseProps() {
             for (var _iterator3 = this.props.columnConfigs[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
                 var _col2 = _step3.value;
 
-                cols.push(data[_col2.propKey] ? data[_col2.propKey].toString() : '-');
+                cols += (data[_col2.propKey] ? data[_col2.propKey].toString() : '-') + ':';
             }
         } catch (err) {
             _didIteratorError3 = true;
@@ -458,7 +474,7 @@ var _initialiseProps = function _initialiseProps() {
             }
         }
 
-        return cols.join(':').replace(/ /g, '_');
+        return cols;
     };
 };
 
