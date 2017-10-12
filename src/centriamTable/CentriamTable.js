@@ -288,7 +288,7 @@ export default class CentriamTable extends React.Component {
                         </div>
                         <div>
                             <button className="defined"
-                                    disabled={this.state.currentPage === 1}
+                                    disabled={this.state.viewPage === 1}
                                     onClick={()=>{
                                         this.state.changePageFunction(this.state.currentPage-1);
                                     }}
@@ -296,7 +296,7 @@ export default class CentriamTable extends React.Component {
                                 <span className="previous"></span>
                             </button>
                             <button className="defined"
-                                    disabled={this.state.currentPage === this.state.maxPage}
+                                    disabled={this.state.viewPage === this.state.maxPage}
                                     onClick={()=>{
                                         this.state.changePageFunction(this.state.currentPage+1);
                                     }}

@@ -283,7 +283,7 @@ var CentriamTable = function (_React$Component) {
 
                     var Component = _col.displayComponent;
                     var props = _extends({
-                        key: _this2.renderRowId(datum) + ':' + _col.definedKey,
+                        key: r + _this2.renderRowId(datum) + _col.definedKey,
                         data: datum,
                         dataKey: _col.propKey,
                         minWidth: _col.minimumPixelWidth,
@@ -296,7 +296,7 @@ var CentriamTable = function (_React$Component) {
                 var row = _react2.default.createElement(
                     'tr',
                     {
-                        key: _this2.renderRowId(datum),
+                        key: r + _this2.renderRowId(datum),
                         style: { height: self.state.rowHeight + 'px' },
                         onClick: function onClick() {
                             return self.rowClick(datum);
@@ -393,7 +393,7 @@ var CentriamTable = function (_React$Component) {
                         _react2.default.createElement(
                             'button',
                             { className: 'defined',
-                                disabled: this.state.currentPage === 1,
+                                disabled: this.state.viewPage === 1,
                                 onClick: function onClick() {
                                     _this2.state.changePageFunction(_this2.state.currentPage - 1);
                                 }
@@ -403,7 +403,7 @@ var CentriamTable = function (_React$Component) {
                         _react2.default.createElement(
                             'button',
                             { className: 'defined',
-                                disabled: this.state.currentPage === this.state.maxPage,
+                                disabled: this.state.viewPage === this.state.maxPage,
                                 onClick: function onClick() {
                                     _this2.state.changePageFunction(_this2.state.currentPage + 1);
                                 }
@@ -432,7 +432,7 @@ var _initialiseProps = function _initialiseProps() {
     };
 
     this.renderRowId = function (data) {
-        var cols = [];
+        var cols = '';
         var _iteratorNormalCompletion3 = true;
         var _didIteratorError3 = false;
         var _iteratorError3 = undefined;
@@ -441,7 +441,7 @@ var _initialiseProps = function _initialiseProps() {
             for (var _iterator3 = this.props.columnConfigs[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
                 var _col2 = _step3.value;
 
-                cols.push(data[_col2.propKey] ? data[_col2.propKey].toString() : '-');
+                cols += (data[_col2.propKey] ? data[_col2.propKey].toString() : '-') + ':';
             }
         } catch (err) {
             _didIteratorError3 = true;
@@ -458,7 +458,7 @@ var _initialiseProps = function _initialiseProps() {
             }
         }
 
-        return cols.join(':').replace(/ /g, '_');
+        return cols;
     };
 };
 
