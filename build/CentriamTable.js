@@ -409,7 +409,7 @@ var CentriamTable = function (_React$Component) {
                         _react2.default.createElement(
                             'button',
                             { className: 'defined',
-                                disabled: this.state.currentPage === 1,
+                                disabled: this.state.viewPage === 1,
                                 onClick: function onClick() {
                                     _this2.state.changePageFunction(_this2.state.currentPage - 1);
                                 }
@@ -419,7 +419,7 @@ var CentriamTable = function (_React$Component) {
                         _react2.default.createElement(
                             'button',
                             { className: 'defined',
-                                disabled: this.state.currentPage === this.state.maxPage,
+                                disabled: this.state.viewPage === this.state.maxPage,
                                 onClick: function onClick() {
                                     _this2.state.changePageFunction(_this2.state.currentPage + 1);
                                 }
