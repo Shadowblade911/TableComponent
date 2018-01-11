@@ -43,7 +43,7 @@ var CentriamTableCell = function (_React$Component) {
 
         var value = data && data[dataKey];
 
-        _this.value = formattingFunction && typeof formattingFunction === 'function' ? formattingFunction(value) : value;
+        _this.value = formattingFunction && typeof formattingFunction === 'function' ? formattingFunction(value, data) : value;
 
         var style = {};
 
