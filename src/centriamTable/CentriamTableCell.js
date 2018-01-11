@@ -13,7 +13,7 @@ export default class CentriamTableCell extends React.Component {
         let value = data && data[dataKey];
 
         this.value = formattingFunction && typeof formattingFunction === 'function' ?
-            formattingFunction(value) : value;
+            formattingFunction(value, data) : value;
 
         let style = {};
 
